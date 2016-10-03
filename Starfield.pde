@@ -1,30 +1,33 @@
 
-NormalParticle[] bob;
+NormalParticle[] particle;
 
 void setup()
 {
 	size(500,500);
 
-	bob = new NormalParticle[100];
-		for(int i = 0; i < bob.length; i++)
+	particle = new NormalParticle[100];
+		for(int i = 0; i < particle.length; i++)
 		{
-			bob[i] = new NormalParticle();
+			//bob[0] = new OddballParticle();
+			particle[i] = new NormalParticle();
 		}
+	particle[99] = new OddballParticle();
+	
 }
 void draw()
 {
 	background(255);
 
-	for(int i = 0; i < bob.length; i++)
+	for(int i = 0; i < particle.length; i++)
 	{
-		bob[i].move();
-		bob[i].show();
+		particle[i].move();
+		particle[i].show();
 	}
 }
 
 
 
-class NormalParticle
+class NormalParticle implements Particle
 {
 	double myX, myY, speed, angle;
 	int myColor;
@@ -70,14 +73,25 @@ interface Particle
 
 class OddballParticle implements Particle //uses an interface
 {
+	float myX,myY;
+	int myColor;
+
+	OddballParticle()
+	{
+		myX = (float)(Math.random()*500);
+		myY = (float)(Math.random()*500);
+		myColor = color(0,0,255);
+	}
+
 	public void show()
 	{
-
+		fill(myColor);
+		rect(10,10,10,10);
 	}
 
 	public void move()
 	{
-
+		myX = myX++;
 	}
 }
 
