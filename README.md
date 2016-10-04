@@ -24,7 +24,6 @@ Suggested steps to completing this assignment
 7. Have your NormalParticle `implement` the Particle interface.
 8. Add `public` in front of the `move()` & `show()` methods in your NormalParticle class.
 9. Create an OddballParticle class that `implements` the Particle interface.
-
 10. Finish the `OddballParticle` class. It will be similiar to the NormalParticle, but OddballParticles should have different `move()` and `show()` methods.
 11. Change your array of NormalParticles to an array of type `Particle`.
 12. Change the first element in the array to a OddballParticle instead of a NormalParticle

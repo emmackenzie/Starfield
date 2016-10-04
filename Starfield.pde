@@ -1,19 +1,21 @@
 
-NormalParticle[] particle;
+Particle[] particle;
 
 void setup()
 {
 	size(500,500);
 
-	particle = new NormalParticle[100];
+	 particle = new Particle[100];
 		for(int i = 0; i < particle.length; i++)
 		{
-			//bob[0] = new OddballParticle();
+
 			particle[i] = new NormalParticle();
 		}
-	particle[99] = new OddballParticle();
+	//particle[1] = new JumboParticle();
+	particle[0] = new OddballParticle();
 	
 }
+
 void draw()
 {
 	background(255);
@@ -59,7 +61,8 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		fill(myColor);
-		ellipse((float)myX,(float)myY,10,10);
+		noStroke();
+		ellipse((float)myX,(float)myY,5,5);
 	}
 }
 
@@ -67,37 +70,48 @@ class NormalParticle implements Particle
 
 interface Particle
 {
-	public void show();
 	public void move();
+	public void show();
 }
 
 class OddballParticle implements Particle //uses an interface
 {
-	float myX,myY;
+	double r, myX, myY, speed, angle;
 	int myColor;
 
 	OddballParticle()
 	{
-		myX = (float)(Math.random()*500);
-		myY = (float)(Math.random()*500);
-		myColor = color(0,0,255);
+		myX = 250;
+		myY = 250;
+		r = 100;
+		speed = (double)(Math.random()*10);
+		angle = (double)(Math.random()* (2*Math.PI));
+		myColor = color((float)(Math.random()*255),(float)(Math.random()*255),(float)(Math.random()*255));
 	}
 
 	public void show()
 	{
+	
 		fill(myColor);
-		rect(10,10,10,10);
+		rect((float)myX,(float) myY,10,10);
 	}
 
 	public void move()
 	{
-		myX = myX++;
+		//myX = a + r * sin(angle);
+		//myY= b + r * cos(angle);
+
+		myX = myX + Math.cos(angle) * speed;
+		myY = myY + Math.sin(angle) * speed;
 	}
 }
 
-class JumboParticle //uses inheritance
+class JumboParticle extends NormalParticle
 {
-	//your code here
+	JumboParticle()
+	{
+		ellipse((float)myX,(float)myY,15,15);
+	}
 }
 
 void mousePressed()
