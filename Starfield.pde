@@ -4,27 +4,28 @@ Particle[] particle;
 void setup()
 {
 	size(500,500);
-
+frameRate = 3;
 	 particle = new Particle[100];
-		for(int i = 0; i < particle.length; i++)
+		for(int i = 0; i < 80; i++)
 		{
-
 			particle[i] = new NormalParticle();
 		}
-	//particle[1] = new JumboParticle();
 	particle[0] = new OddballParticle();
+	//particle[1] = new OddballParticle();
+	particle[1] = new JumboParticle();
 	
 }
 
 void draw()
 {
-	background(255);
-
-	for(int i = 0; i < particle.length; i++)
+	background(0);
+	
+	for(int i = 0; i < 80; i++)
 	{
 		particle[i].move();
 		particle[i].show();
 	}
+	
 }
 
 
@@ -78,14 +79,13 @@ class OddballParticle implements Particle //uses an interface
 {
 	double r, myX, myY, speed, angle;
 	int myColor;
+	int direction;
 
 	OddballParticle()
 	{
 		myX = 250;
 		myY = 250;
-		r = 100;
-		speed = (double)(Math.random()*10);
-		angle = (double)(Math.random()* (2*Math.PI));
+		direction = 0;
 		myColor = color((float)(Math.random()*255),(float)(Math.random()*255),(float)(Math.random()*255));
 	}
 
@@ -98,11 +98,20 @@ class OddballParticle implements Particle //uses an interface
 
 	public void move()
 	{
-		//myX = a + r * sin(angle);
-		//myY= b + r * cos(angle);
+		myX = myX += 1; // (int)(Math.random()*9)-4;
+ 		//myY = myY ++; // (int)(Math.random()*9)-4;
 
-		myX = myX + Math.cos(angle) * speed;
-		myY = myY + Math.sin(angle) * speed;
+ 		if (direction == 0)
+ 			myX = myX ++;
+ 		if (direction == 1)
+ 			myX = myX --;
+
+ 		if (myX < 5)
+ 			direction = 0;
+ 		if(myX >= 495)
+ 			direction = 1;
+
+ 	
 	}
 }
 
@@ -110,7 +119,8 @@ class JumboParticle extends NormalParticle
 {
 	JumboParticle()
 	{
-		ellipse((float)myX,(float)myY,15,15);
+		fill(255);
+		ellipse((float)myX,(float)myY,50,50);
 	}
 }
 
